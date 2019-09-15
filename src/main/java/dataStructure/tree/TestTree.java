@@ -8,10 +8,11 @@ public class TestTree {
 
   public static void main(String[] args) {
     tree = createTree();
-    printZigZigTree();
+    //printZigZigTree();
+    printReverseTree();
   }
 
-  private static  Tree createTree(){
+  private static Tree createTree() {
     Tree tree = new Tree();
 
     tree.add(10);
@@ -75,8 +76,12 @@ public class TestTree {
 
   }
 
-  private static  void printZigZigTree(){
+  private static void printZigZigTree() {
     tree.printInZigZagPattern(tree.root);
+  }
+
+  private static void printReverseTree() {
+    tree.printTreeInReversalPattern(tree.root);
   }
 
 }

@@ -1,10 +1,10 @@
 package dataStructure.tree;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Stack;
+import java.util.*;
 
+/**
+ * @author Adit
+ */
 public class Tree {
 
   Node root = null;
@@ -188,6 +188,12 @@ public class Tree {
     }
   }
 
+  /**
+   * @param valueToSearch
+   * @return
+   * @author Adit choudhary
+   * @createdOn 15 Sep 2019
+   */
   public Optional<Node> inOrderSuccessor(int valueToSearch) {
 
     Node node = new Node(valueToSearch);
@@ -246,6 +252,33 @@ public class Tree {
         nextLevel = currentLevel;
         currentLevel = temp;
       }
+    }
+  }
+
+  /**
+   * @createdOn 15 sep 2019
+   * @param node
+   */
+  public void printTreeInReversalPattern(Node node) {
+
+    Stack<Node> stack = new Stack<>();
+    Queue<Node> queue = new ArrayDeque<>();
+    queue.add(node);
+    while (!queue.isEmpty()) {
+      Node current = queue.poll();
+
+      if (current.right != null) {
+        queue.add(current.right);
+      }
+
+      if (current.left != null) {
+        queue.add(current.left);
+      }
+      stack.push(current);
+    }
+
+    while (!stack.isEmpty()) {
+      System.out.print(stack.pop().value + " ");
     }
   }
 
