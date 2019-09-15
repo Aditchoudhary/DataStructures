@@ -2,6 +2,8 @@ package dataStructure.tree;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Stack;
 
 public class Tree {
 
@@ -15,8 +17,8 @@ public class Tree {
   class Top {
 
     Top(int level, int nodeValue) {
-    this.level = level;
-    this.nodeValue = nodeValue;
+      this.level = level;
+      this.nodeValue = nodeValue;
     }
 
     int level;
@@ -26,6 +28,7 @@ public class Tree {
   public void add(int value) {
     //size is 0, means no node is added
     // in tree
+
     if (root == null) {
       root = new Node(value);
       current = root;
@@ -142,8 +145,8 @@ public class Tree {
 
   }
 
-  public void traversePostOrder(Node current){
-    if(current == null)
+  public void traversePostOrder(Node current) {
+    if (current == null)
       return;
     traversePostOrder(current.left);
     traversePostOrder(current.right);
@@ -183,6 +186,91 @@ public class Tree {
     for (int line = min; line <= max; line++) {
       topView(node, count, line, level, hm);
     }
+  }
+
+  public Optional<Node> inOrderSuccessor(int valueToSearch) {
+
+    Node node = new Node(valueToSearch);
+    Optional<Node> foundNode = findNode(node, root);
+
+    Optional<Node> successor = Optional.ofNullable(null);
+    Optional<Node> ancestor = Optional.ofNullable(root);
+
+    if (foundNode.get().right != null) {
+      successor = findMin(foundNode.get().right);
+    } else {
+      while (ancestor.get().value != valueToSearch) {
+        if (ancestor.get().value > valueToSearch) {
+          successor = ancestor;
+          ancestor = Optional.ofNullable(ancestor.get().left);
+        } else {
+          ancestor = Optional.ofNullable(ancestor.get().right);
+        }
+      }
+    }
+    return successor;
+  }
+
+  public void printInZigZagPattern(Node node) {
+
+    Stack<Node> currentLevel = new Stack<>();
+    Stack<Node> nextLevel = new Stack<>();
+    boolean leftToRight = true;
+    Node currentNode;
+    currentLevel.push(node);
+    while (currentLevel.isEmpty() != true) {
+      currentNode = currentLevel.pop();
+      System.out.print(currentNode.value + " ");
+
+      if (leftToRight) {
+        if (currentNode.left != null) {
+          nextLevel.push(currentNode.left);
+        }
+
+        if (currentNode.right != null) {
+          nextLevel.push(currentNode.right);
+        }
+      } else {
+        if (currentNode.right != null) {
+          nextLevel.push(currentNode.right);
+        }
+
+        if (currentNode.left != null) {
+          nextLevel.push(currentNode.left);
+        }
+      }
+
+      if (currentLevel.isEmpty()) {
+        leftToRight = !leftToRight;
+        Stack<Node> temp = nextLevel;
+        nextLevel = currentLevel;
+        currentLevel = temp;
+      }
+    }
+  }
+
+  private Optional<Node> findMin(Node node) {
+    if (node.left != null) {
+      while (node.left != null) {
+        node = node.left;
+      }
+    }
+    return Optional.of(node);
+  }
+
+  private Optional<Node> findNode(Node searchedNode, Node current) {
+    if (current == null)
+      return Optional.ofNullable(null);
+
+    if (searchedNode.value < current.value) {
+      current = current.left;
+      return findNode(searchedNode, current);
+    } else if (searchedNode.value > current.value) {
+      current = current.right;
+      return findNode(searchedNode, current);
+    }
+    return Optional.ofNullable(current);
+
   }
 
   private void printLeafNode(Node node) {

@@ -16,7 +16,7 @@
         </plugins>
     </build>
     <groupId>com.learning</groupId>
-    <artifactId>DataStructure</artifactId>
+    <artifactId>DataStructures</artifactId>
     <version>1.0-SNAPSHOT</version>
 
 
