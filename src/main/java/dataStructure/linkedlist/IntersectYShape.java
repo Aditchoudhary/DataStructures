@@ -1,6 +1,8 @@
 package dataStructure.linkedlist;
 
-
+/**
+ * @link https://practice.geeksforgeeks.org/problems/intersection-point-in-y-shapped-linked-lists/1/
+ */
 public class IntersectYShape {
 
     static class Node {
