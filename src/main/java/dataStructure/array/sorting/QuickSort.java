@@ -1,46 +1,42 @@
 package dataStructure.array.sorting;
 
 public class QuickSort {
+	public static void main(String[] args) {
+		int arr[] = {5,3,7,2,1,6};
+		
+		quick(arr, 0, arr.length-1);
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println(arr[i]+ " ");
+		}
+		
+	}
 
-  public static void main(String[] args) {
+	private static void quick(int[] arr, int start, int end) {
+		
+		if(start<end){
+		int pi = partion(arr, start, end);
+		quick(arr, start , pi-1);
+		quick(arr, pi+1, end);
+		}
+	}
 
-    int[] arr = {20, 12, 45, 23, 2, 3, 6};
-    quicksort(arr, 0, arr.length-1);
-
-    for (int i = 0; i < arr.length; i++) {
-      System.out.println(arr[i]);
-    }
-  }
-
-  private static void quicksort(int[] arr, int low, int high) {
-
-    if (low < high) {
-      int pivotIndex = partition(arr, low, high);
-
-      quicksort(arr,low, pivotIndex-1);
-      quicksort(arr, pivotIndex+1, high);
-    }
-
-  }
-
-  private static int partition(int[] arr, int low, int high) {
-
-    int pivot = arr[high];
-    int i = low - 1;
-    for (int j = low; j <= high; j++) {
-
-      if (arr[j] < pivot) {
-        i++;
-        int temp = arr[i];
-        arr[i] = arr[j];
-        arr[j] = temp;
-      }
-    }
-
-    int temp = arr[i + 1];
-    arr[i + 1] = pivot;
-    arr[high] = temp;
-    return i + 1;
-  }
-
+	private static int partion(int[] arr, int start, int end) {
+		
+		int pivot = arr[end];
+		int j = start;
+		
+		for (int i = start; i <= end; i++) {
+				if(arr[i]<pivot){
+					int temp = arr[j];
+					arr[j] = arr[i];
+					arr[i] = temp;
+					j++;
+				}
+		}
+		
+		int temp = arr[j];
+		arr[j] = pivot;
+		arr[end] = temp;
+		return j;
+	}
 }
