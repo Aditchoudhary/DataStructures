@@ -23,8 +23,7 @@ public class TripletSumToZeroUsingHashSet {
 			int target = arr[i];
 			if(i==i+1)
 				continue;
-			
-			triplets=getPair(arr,-target, i+1, triplets);
+			getPair(arr,-target, i+1, triplets);
 		}
 		
 		return triplets;
